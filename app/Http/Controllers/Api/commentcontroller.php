@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\comment;
+use App\Http\Resources\comment as cmtResource;
 
 class commentcontroller extends Controller
 {
@@ -61,5 +62,11 @@ class commentcontroller extends Controller
     public function destroy($id)
     {
         comment::find($id)->delete();
+    }
+    public function postcmts(Request $request){
+        return [
+            'success' => true,
+            'cmts' => cmtResource::collection(comment::where('postID',$request->postID)->paginate(10))
+        ];
     }
 }

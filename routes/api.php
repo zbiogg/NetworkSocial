@@ -35,6 +35,8 @@ Route::apiResource('relationship','Api\relationshipcontroller');
 
 Route::apiResource('replycomments','Api\replycommentcontroller');
 
+Route::get('postcmts','Api\commentcontroller@postcmts');
+
 Route::post('login','Api\AuthController@login');
 
 Route::get('checklogin','Api\AuthController@checklogin')->middleware('jwtAuth');
