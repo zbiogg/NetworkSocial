@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\post as postResource;
+use  Illuminate\Support\Facades\Auth;
+use App\posts;
 
 class usercontroller extends Controller
 {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\comment;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\comment as cmtResource;
 
 class commentcontroller extends Controller
@@ -38,7 +39,7 @@ class commentcontroller extends Controller
      */
     public function show($id)
     {
-        return comment::find($id);
+        return ['cmt' => cmtResource::collection(comment::where('id',$id)->get())];
     }
 
     /**
@@ -66,7 +67,25 @@ class commentcontroller extends Controller
     public function postcmts(Request $request){
         return [
             'success' => true,
-            'cmts' => cmtResource::collection(comment::where('postID',$request->postID)->paginate(10))
+            'cmts' => cmtResource::collection(comment::where('postID',$request->postID)->orderBy('id','desc')->paginate(10)->sortBy('id'))
         ];
+    }
+
+    public function addCmt(Request $request){
+            
+        $CreateCmt= new comment;
+        $CreateCmt->userID=Auth::user()->id;
+        $CreateCmt->content_cmt=$request->content_cmt;
+        $CreateCmt->postID=$request->postID;
+        if($request->content_cmt!=''){
+            $CreateCmt->save();
+            $cmtid=$CreateCmt->id;
+            
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'oke',
+             'cmt' =>cmtResource::collection(comment::where('id',$cmtid)->get())
+        ]);
     }
 }

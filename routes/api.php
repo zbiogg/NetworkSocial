@@ -46,3 +46,11 @@ Route::post('signup','Api\AuthController@register');
 Route::get('logout','Api\AuthController@logout');
 
 Route::get('myposts','Api\postcontroller@myPosts')->middleware('jwtAuth');
+
+Route::get('userprofile/{id}','Api\postcontroller@userPosts')->middleware('jwtAuth');
+
+Route::post('comments','Api\commentcontroller@addCmt')->middleware('jwtAuth');
+
+Route::get('requestFriends','Api\friendcontroller@requestFriends')->middleware('jwtAuth');
+
+Route::post('addFriend','Api\friendcontroller@addFriend')->middleware('jwtAuth');

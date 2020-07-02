@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\posts;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\post as postResource;
@@ -53,10 +54,12 @@ class postcontroller extends Controller
      * @param  \App\posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function show(posts $posts,$id)
+    public function show($id)
     {
-        $posts = posts::where('postID',$id)->first();
-        return $posts;
+        return [
+            'success' => true,
+             'data' =>postResource::collection(posts::where('postID',$id)->get())
+            ];
     }
 
     /**
@@ -86,6 +89,13 @@ class postcontroller extends Controller
         return [
             'success' => true,
             'data' => postResource::collection(posts::where('userID',Auth::user()->id)->paginate(10)->sortBy('postID'))];
+    }
+
+    public function userPosts($id){
+        return [
+            'success' => true,
+            'user' => User::where('id',$id)->first(),
+            'data' => postResource::collection(posts::where('userID',$id)->paginate(10)->sortBy('postID'))];
     }
     
     public function addPost(Request $request)
