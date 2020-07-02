@@ -26,7 +26,6 @@ class friendcontroller extends Controller
         $rela->save();
         return response()->json($rela);
 
-
     }
 
     public function requestFriends(){
