@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\post as postResource;
+use App\Http\Resources\user as userResource;
 use Illuminate\Support\Facades\Auth;
 
 class postcontroller extends Controller
@@ -19,7 +20,7 @@ class postcontroller extends Controller
     public function index()
     {
     
-        return postResource::collection(posts::orderBy('postID','desc')->paginate(20)->sortBy('postID'));
+        return postResource::collection(posts::orderBy('postID','desc')->paginate(20)->sortByDesc('postID'));
     }
     /**
      * Store a newly created resource in storage.
@@ -94,7 +95,7 @@ class postcontroller extends Controller
     public function userPosts($id){
         return [
             'success' => true,
-            'user' => User::where('id',$id)->first(),
+            'user' => userResource::collection(User::where('id',$id)->get()),
             'data' => postResource::collection(posts::where('userID',$id)->paginate(10)->sortBy('postID'))];
     }
     
@@ -119,5 +120,15 @@ class postcontroller extends Controller
             'message' => 'oke',
              'data' =>postResource::collection(posts::where('postID',$CreatePost->id)->get())
         ]);
+    }
+
+    public function deletePost(Request $request){
+        posts::where('postID',$request->postID)->delete();
+        if(posts::where('postID',$request->postID)->first()){
+            return ['success' =>false];
+        }else{
+            return ['success' =>true];
+        }
+    
     }
 }

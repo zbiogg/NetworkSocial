@@ -23,6 +23,8 @@ Route::apiResource('posts','Api\postcontroller')->middleware('jwtAuth');
 
 Route::post('posts','Api\postcontroller@addPost')->middleware('jwtAuth');
 
+Route::post('deletePost','Api\postcontroller@deletePost')->middleware('jwtAuth');
+
 Route::apiResource('users','Api\usercontroller');
 
 Route::apiResource('likes','Api\likecontroller')->middleware('jwtAuth');
@@ -53,4 +55,14 @@ Route::post('comments','Api\commentcontroller@addCmt')->middleware('jwtAuth');
 
 Route::get('requestFriends','Api\friendcontroller@requestFriends')->middleware('jwtAuth');
 
+Route::get('suggestFriends','Api\friendcontroller@suggestFriends')->middleware('jwtAuth');
+
 Route::post('addFriend','Api\friendcontroller@addFriend')->middleware('jwtAuth');
+
+Route::post('cancelAddFriend','Api\friendcontroller@cancelAddFriend')->middleware('jwtAuth');
+
+Route::post('deleteRequest','Api\friendcontroller@deleteRequest')->middleware('jwtAuth');
+
+Route::get('search','Api\searchcontroller@search')->middleware('jwtAuth');
+
+
