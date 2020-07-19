@@ -33,14 +33,14 @@ class user extends JsonResource
 
         $banchung = array_intersect($abc, $def);
         if(Auth::user()->id<$this->id){
-            $checkfriend = relationship::where('userID_1',Auth::user()->id)->where('userID_2',$this->id)->where('status',1)->first();
+            $checkfriend = relationship::where('userID_1',Auth::user()->id)->where('userID_2',$this->id)->first();
         }else{
-            $checkfriend = relationship::where('userID_2',Auth::user()->id)->where('userID_1',$this->id)->where('status',1)->first();
+            $checkfriend = relationship::where('userID_2',Auth::user()->id)->where('userID_1',$this->id)->first();
         }
         if($checkfriend){
-           $status_friend = 1 ;
+           $status_friend = $checkfriend->status ;
         }else{
-            $status_friend =0;
+            $status_friend =4;
         }
         
         return [
