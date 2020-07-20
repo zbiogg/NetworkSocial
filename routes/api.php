@@ -65,4 +65,5 @@ Route::post('deleteRequest','Api\friendcontroller@deleteRequest')->middleware('j
 
 Route::get('search','Api\searchcontroller@search')->middleware('jwtAuth');
 
+Route::post('sendMessage','Api\chatcontroller@sendMessage');
 

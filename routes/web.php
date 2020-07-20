@@ -14,6 +14,7 @@
     return view('home');
 });*/
 
+use App\Http\Controllers\RedisController;
 
 Route::get('/', function(){
     return view('home');
@@ -167,6 +168,7 @@ Route::get('test',function(){
     return 1;
 });
 
+Route::get('chat','RedisController@viewChat');
 
 
 
