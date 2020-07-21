@@ -53,6 +53,8 @@ Route::get('userprofile/{id}','Api\postcontroller@userPosts')->middleware('jwtAu
 
 Route::post('comments','Api\commentcontroller@addCmt')->middleware('jwtAuth');
 
+Route::get('replycomments','Api\commentcontroller@replycomments')->middleware('jwtAuth');
+
 Route::get('requestFriends','Api\friendcontroller@requestFriends')->middleware('jwtAuth');
 
 Route::get('suggestFriends','Api\friendcontroller@suggestFriends')->middleware('jwtAuth');
@@ -66,4 +68,6 @@ Route::post('deleteRequest','Api\friendcontroller@deleteRequest')->middleware('j
 Route::get('search','Api\searchcontroller@search')->middleware('jwtAuth');
 
 Route::post('sendMessage','Api\chatcontroller@sendMessage');
+
+Route::get('notification','Api\notificationcontroller@getNotification')->middleware('jwtAuth');
 

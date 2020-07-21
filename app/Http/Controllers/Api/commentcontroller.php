@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\comment;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\comment as cmtResource;
+use App\Http\Resources\replycomment as replycmtResource;
+use App\replycomment;
 
 class commentcontroller extends Controller
 {
@@ -87,5 +89,12 @@ class commentcontroller extends Controller
             'message' => 'oke',
              'cmt' =>cmtResource::collection(comment::where('id',$cmtid)->get())
         ]);
+    }
+
+    public function replycomments(Request $request){
+        return [
+            'success' => true,
+            'replycmts' => replycmtResource::collection(replycomment::where('comment_ID',$request->comment_ID)->orderBy('id','desc')->paginate(10)->sortBy('id'))
+        ];
     }
 }
