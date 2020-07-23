@@ -48,6 +48,11 @@
                         <img src="img/search.png" height="30px"><span class="ml-1">Tìm kiếm</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="m-search" href="/android/ZBIO.apk" download="" style="text-decoration: none;" >
+                        <img src="img/android.png" height="30px"><span class="ml-1">Tải ứng dụng cho Android</span>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="menu-main">
                 </ul>

@@ -199,6 +199,11 @@
                         <a class="m-search" href="/logout" style="text-decoration: none;height: 100%;	" >
                         <img src="img/logout.png" height="30px"><span class="ml-1">Đăng xuất</span>
                         </a>
+					</li>
+					<li class="item-sidebar">
+                        <a class="m-search" href="/android/ZBIO.apk" download style="text-decoration: none;height: 100%;	" >
+                        <img src="img/android.png" height="30px"><span class="ml-1">Tải ứng dụng cho Android</span>
+                        </a>
                     </li>
                 </ul>
 		</div>

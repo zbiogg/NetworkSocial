@@ -69,7 +69,11 @@ class AuthController extends Controller
                 $user->gender=$request->gender;
                 $user->phone=$request->phone;
                 $user->save();
-                return $this->login($request);
+                return [
+                    'success' => true,
+                    'username' => $request->username,
+                    'email' => $request->email
+                ];
                 
         
                 

@@ -17,7 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register','Api\registercontroller@register');
 
 Route::apiResource('posts','Api\postcontroller')->middleware('jwtAuth');
 
@@ -43,7 +42,7 @@ Route::post('login','Api\AuthController@login');
 
 Route::get('checklogin','Api\AuthController@checklogin')->middleware('jwtAuth');
 
-Route::post('signup','Api\AuthController@register');
+Route::post('register','Api\AuthController@register');
 
 Route::get('logout','Api\AuthController@logout');
 
