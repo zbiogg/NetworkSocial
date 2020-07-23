@@ -13,7 +13,7 @@ class notificationcontroller extends Controller
     public function getNotification(){
       return  [
           'success' => true,
-         'notifications'=> notiResource::collection(notification::where('receiverID',Auth::user()->id)->orderBy('created_at','desc')->paginate(15))
+         'notifications'=> notiResource::collection(notification::where('receiverID',Auth::user()->id)->orderBy('created_at','desc')->paginate(10))
       ];
         }
 }

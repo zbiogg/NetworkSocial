@@ -7,8 +7,13 @@ use App\Http\Controllers\Controller;
 use App\comment;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\comment as cmtResource;
+use App\Http\Resources\post as postResource;
 use App\Http\Resources\replycomment as replycmtResource;
 use App\replycomment;
+use App\posts;
+use App\User;
+use App\notification;
+use Egulias\EmailValidator\Warning\Comment as WarningComment;
 
 class commentcontroller extends Controller
 {
@@ -69,6 +74,7 @@ class commentcontroller extends Controller
     public function postcmts(Request $request){
         return [
             'success' => true,
+            'post' =>postResource::collection(posts::where('postID',$request->postID)->get()),
             'cmts' => cmtResource::collection(comment::where('postID',$request->postID)->orderBy('id','desc')->paginate(10)->sortBy('id'))
         ];
     }
@@ -82,6 +88,17 @@ class commentcontroller extends Controller
         if($request->content_cmt!=''){
             $CreateCmt->save();
             $cmtid=$CreateCmt->id;
+            $receiver=posts::where('postID',$request->postID)->first();
+        if(Auth::user()->id !=$receiver->userID){
+            $noti= new notification;
+            $noti->senderID=Auth::user()->id;
+            $noti->receiverID=$receiver->userID;
+            $noti->url="posts/".$request->postID."?cmtID=".$cmtid;
+            $noti->message=" đã bình luận viết của bạn.";
+            $noti->status=0;
+            $noti->save();
+        }
+            
             
         }
         return response()->json([
@@ -94,7 +111,37 @@ class commentcontroller extends Controller
     public function replycomments(Request $request){
         return [
             'success' => true,
+            'cmt' => cmtResource::collection(comment::where('id',$request->comment_ID)->get()),
             'replycmts' => replycmtResource::collection(replycomment::where('comment_ID',$request->comment_ID)->orderBy('id','desc')->paginate(10)->sortBy('id'))
         ];
+    }
+
+    public function addRepCmt(Request $request){
+            
+        $RepCmt= new replycomment;
+        $RepCmt->userID=Auth::user()->id;
+        $RepCmt->content_repcmt=$request->content_repcmt;
+        $RepCmt->comment_ID=$request->comment_ID;
+        if($request->content_repcmt!=''){
+            $RepCmt->save();
+            $repcmtid=$RepCmt->id;
+            $receiver=comment::where('id',$request->comment_ID)->first();
+            if(Auth::user()->id !=$receiver->userID){ 
+                $noti= new notification;
+                $noti->senderID=Auth::user()->id;
+                $noti->receiverID=$receiver->userID;
+                $noti->url="posts/".$receiver->postID."?cmtID=".$repcmtid;
+                $noti->message=" đã trả lời bình luận của bạn.";
+                $noti->status=0;
+                $noti->save();
+            }
+            
+            
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'oke',
+             'repcmt' =>replycmtResource::collection(replycomment::where('id',$repcmtid)->get())
+        ]);
     }
 }

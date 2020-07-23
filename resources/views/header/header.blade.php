@@ -20,7 +20,7 @@
 		<header class="zbio-header" id="myHeader">
 			<div class="header-content container ">
 				<a href="/" class="header-logo mr-3" title="Trang chủ">
-					<img src="img/logo1.png" height="80px">
+					<img src="img/logo1.png" height="45px" style="border-radius: 50%; border: 1px solid #d2d2d2; background-color: #f1f1f1;">
 				</a>
 				<button type="button" class="navbar-toggler	" data-toggle="collapse" data-target="#sidebar-collapse" aria-expanded="true"><span class="sr-only">Toggle navigation</span>
 					<span class="navbar-toggler-icon">
@@ -193,6 +193,11 @@
                     <li class="item-sidebar">
                         <a class="m-search" href="/search" style="text-decoration: none;height: 100%;	" >
                         <img src="img/search.png" height="30px"><span class="ml-1">Tìm kiếm</span>
+                        </a>
+					</li>
+					<li class="item-sidebar">
+                        <a class="m-search" href="/logout" style="text-decoration: none;height: 100%;	" >
+                        <img src="img/logout.png" height="30px"><span class="ml-1">Đăng xuất</span>
                         </a>
                     </li>
                 </ul>

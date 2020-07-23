@@ -25,19 +25,19 @@ Route::post('posts','Api\postcontroller@addPost')->middleware('jwtAuth');
 
 Route::post('deletePost','Api\postcontroller@deletePost')->middleware('jwtAuth');
 
-Route::apiResource('users','Api\usercontroller');
+Route::apiResource('users','Api\usercontroller')->middleware('jwtAuth');
 
 Route::apiResource('likes','Api\likecontroller')->middleware('jwtAuth');
 
-Route::apiResource('comments','Api\commentcontroller');
+Route::apiResource('comments','Api\commentcontroller')->middleware('jwtAuth');
 
-Route::apiResource('notifications','Api\notificationcontroller');
+Route::apiResource('notifications','Api\notificationcontroller')->middleware('jwtAuth');
 
-Route::apiResource('relationship','Api\relationshipcontroller');
+Route::apiResource('relationship','Api\relationshipcontroller')->middleware('jwtAuth');
 
-Route::apiResource('replycomments','Api\replycommentcontroller');
+Route::apiResource('replycomments','Api\replycommentcontroller')->middleware('jwtAuth');
 
-Route::get('postcmts','Api\commentcontroller@postcmts');
+Route::get('postcmts','Api\commentcontroller@postcmts')->middleware('jwtAuth');
 
 Route::post('login','Api\AuthController@login');
 
@@ -53,6 +53,8 @@ Route::get('userprofile/{id}','Api\postcontroller@userPosts')->middleware('jwtAu
 
 Route::post('comments','Api\commentcontroller@addCmt')->middleware('jwtAuth');
 
+Route::post('repcmt','Api\commentcontroller@addRepCmt')->middleware('jwtAuth');
+
 Route::get('replycomments','Api\commentcontroller@replycomments')->middleware('jwtAuth');
 
 Route::get('requestFriends','Api\friendcontroller@requestFriends')->middleware('jwtAuth');
@@ -60,6 +62,8 @@ Route::get('requestFriends','Api\friendcontroller@requestFriends')->middleware('
 Route::get('suggestFriends','Api\friendcontroller@suggestFriends')->middleware('jwtAuth');
 
 Route::post('addFriend','Api\friendcontroller@addFriend')->middleware('jwtAuth');
+
+Route::post('acceptFriend','Api\friendcontroller@acceptFriend')->middleware('jwtAuth');
 
 Route::post('cancelAddFriend','Api\friendcontroller@cancelAddFriend')->middleware('jwtAuth');
 

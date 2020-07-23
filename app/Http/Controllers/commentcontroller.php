@@ -21,7 +21,7 @@ class commentcontroller extends Controller
             $noti= new notification;
             $noti->senderID=Auth::user()->id;
             $noti->receiverID=$receiver->userID;
-            $noti->url="posts/".$request->postID;
+            $noti->url="posts/".$request->postID."?cmtID=".$cmt->id;
             $noti->message=" đã bình luận viết của bạn.";
             $noti->status=0;
             $noti->save();
@@ -42,7 +42,7 @@ class commentcontroller extends Controller
             $noti= new notification;
             $noti->senderID=Auth::user()->id;
             $noti->receiverID=$receiver->userID;
-            $noti->url="posts/".$receiver->postID;
+            $noti->url="posts/".$receiver->postID."?cmtID=".$request->cmtID;
             $noti->message=" đã trả lời bình luận của bạn.";
             $noti->status=0;
             $noti->save();

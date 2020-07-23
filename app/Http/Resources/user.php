@@ -39,8 +39,10 @@ class user extends JsonResource
         }
         if($checkfriend){
            $status_friend = $checkfriend->status ;
+           $action_userID = $checkfriend->action_userID;
         }else{
             $status_friend =4;
+            $action_userID=-1;
         }
         
         return [
@@ -62,7 +64,8 @@ class user extends JsonResource
             'status' => $this->status,
             'auth' => $this->auth,
             'mutual_friends'=>sizeof($banchung),
-            'status_friend' =>$status_friend
+            'status_friend' =>$status_friend,
+            'action_userID' =>$action_userID
         ];
     }
 }
